@@ -1,0 +1,32 @@
+.386
+.MODEL FLAT, STDCALL
+EXTRN ExitProcess@4:PROC
+.DATA
+;block vars declare
+a DD ?
+b DD ?
+c DD ?
+;stack declare
+_STACK DD 3 dup (0)
+;Pointer at the beginning of the operator stack
+_OPERPTR DD 0
+.CODE
+MAIN PROC
+MOV EBX, 5
+MOV a, EBX
+MOV EAX, a
+MOV EBX, 4
+IMUL EBX
+MOV DWORD PTR[_STACK + 0], EAX
+MOV EBX, DWORD PTR[_STACK + 0]
+MOV b, EBX
+MOV EAX, a
+MOV EBX, b
+ADD EAX, EBX
+MOV DWORD PTR[_STACK + 0], EAX
+MOV EBX, DWORD PTR[_STACK + 0]
+MOV c, EBX
+PUSH 0
+CALL ExitProcess@4
+MAIN ENDP
+END MAIN
